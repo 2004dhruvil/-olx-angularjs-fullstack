@@ -1,0 +1,87 @@
+<div class="auth-container">
+  <h2>Enter Order Details</h2>
+
+  <form ng-submit="placeOrder()">
+    <input placeholder="Your Name" ng-model="order.name" required />
+
+    <input type="email" placeholder="Your Email" ng-model="order.email" required style="width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 15px;" />
+
+    <input placeholder="Phone Number" ng-model="order.phone" required />
+
+    <textarea class="form-control"
+      style="min-height: 100px; background: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 16px; padding: 1rem;"
+      placeholder="Address" ng-model="order.address" required></textarea>
+
+    <!-- reCAPTCHA Container -->
+    <div id="recaptcha-container" style="margin-top: 1rem;"></div>
+
+    <hr />
+
+    <!-- Text-based CAPTCHA (Letters) -->
+    <div class="captcha-letters-container" style="margin-top: 1rem; text-align: center;">
+      <p style="margin-bottom: 0.5rem; font-weight: 500;">Enter the letters below:</p>
+      
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem;">
+        <div ng-bind-html="captchaSvg"
+             style="background: white; border-radius: 8px; border: 1px solid #cbd5e1; padding: 5px;"></div>
+        <button type="button" ng-click="refreshCaptcha()" class="btn btn-sm btn-outline-secondary" title="Refresh">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+
+      <input type="text" placeholder="Type letters here" ng-model="order.captchaInput" 
+             style="text-transform: uppercase; text-align: center;" required />
+    </div>
+
+    <hr />
+
+    <!-- Payment Method Selection -->
+    <div class="payment-selection-container" style="margin-top: 1.5rem;">
+      <p style="margin-bottom: 1rem; font-weight: 600; text-align: center; color: #475569;">Select Payment Method</p>
+      
+      <div class="payment-methods-grid">
+        <!-- COD Card -->
+        <div class="payment-method-card" ng-class="{'active': order.paymentMethod === 'COD'}" 
+             ng-click="order.paymentMethod = 'COD'; qpayVisible = false">
+          <i class="fa-solid fa-truck-fast icon"></i>
+          <span class="label">Cash on Delivery</span>
+          <i class="fa-solid fa-circle-check check-mark"></i>
+        </div>
+
+        <!-- Online Card -->
+        <div class="payment-method-card" ng-class="{'active': order.paymentMethod === 'Online' || order.paymentMethod === 'Qpay'}" 
+             ng-click="order.paymentMethod = 'Online'">
+          <i class="fa-solid fa-credit-card icon"></i>
+          <span class="label">Online Payment</span>
+          <i class="fa-solid fa-circle-check check-mark"></i>
+        </div>
+      </div>
+
+      <!-- Online Options: Q Pay -->
+      <div ng-if="order.paymentMethod === 'Online' || order.paymentMethod === 'Qpay'" class="text-center animate__animated animate__fadeIn">
+        <div class="card p-3 mb-3 border-primary shadow-sm" style="border-radius: 20px; background: #f0f7ff;">
+          <p class="mb-2 fw-bold text-primary">Q pay Option</p>
+          <p class="small text-muted mb-3">Pay instantly via QR scanner</p>
+          <button type="button" class="btn btn-primary rounded-pill px-4 py-2 fw-bold" ng-click="showQPay()">
+            <i class="fa-solid fa-qrcode me-2"></i> Click for Q pay
+          </button>
+
+          <!-- QR Code Display -->
+          <div ng-if="qpayVisible" class="mt-3 animate__animated animate__zoomIn">
+            <p class="small text-muted mb-2 text-uppercase fw-bold" style="letter-spacing: 1px;">Scan to Pay</p>
+            <div class="bg-white p-3 d-inline-block rounded-4 shadow-sm border">
+               <img ng-src="{{qrCodeUrl}}" alt="Payment QR Code" style="width: 160px; height: 160px;" />
+            </div>
+            <p class="mt-2 mb-0 text-success small fw-bold">
+              <i class="fa-solid fa-shield-check me-1"></i> Secure Q pay Link
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">
+      Place Order
+    </button>
+  </form>
+</div>

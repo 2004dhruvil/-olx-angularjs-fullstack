@@ -1,0 +1,74 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h2 class="fw-bold mb-1">Seller Dashboard</h2>
+      <p class="text-muted">Manage your listings and orders.</p>
+    </div>
+    <a href="#/add-product" class="btn btn-success btn-lg rounded-pill shadow-sm">
+      <i class="fa-solid fa-plus me-2"></i> Post New Ad
+    </a>
+  </div>
+
+  <!-- Dashboard Stats (Placeholder for now, can be dynamic later) -->
+  <div class="row mb-5 g-4">
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm border-start border-4 border-primary">
+        <h6 class="text-muted text-uppercase fw-bold small">Active Listings</h6>
+        <h2 class="mb-0 fw-bold">{{myProducts.length || 0}}</h2>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm border-start border-4 border-success">
+        <h6 class="text-muted text-uppercase fw-bold small">Total Sales</h6>
+        <h2 class="mb-0 fw-bold">₹ 0</h2> <!-- Placeholder -->
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm border-start border-4 border-warning">
+        <h6 class="text-muted text-uppercase fw-bold small">Rating</h6>
+        <h2 class="mb-0 fw-bold">4.8 <small class="fs-6 text-muted">/ 5.0</small></h2>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mb-4">My Products</h4>
+
+  <div class="row g-4" ng-if="myProducts.length > 0">
+    <div class="col-sm-6 col-lg-3" ng-repeat="p in myProducts">
+      <div class="product-card h-100 position-relative">
+        <div class="product-card-img-wrapper">
+          <img ng-src="{{ 'http://localhost:5000/uploads/' + p.images[0] }}"
+            onerror="this.src='https://placehold.co/300x200?text=No+Image'" alt="{{p.title}}">
+          <span class="badge position-absolute top-0 end-0 m-2 bg-dark bg-opacity-75">
+            <i class="fa-solid fa-eye text-white"></i> 124
+          </span>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title text-truncate">{{ p.title }}</h5>
+          <div class="card-price">₹ {{ p.price | number }}</div>
+          <p class="small text-muted text-truncate">{{ p.description }}</p>
+
+          <div class="d-grid gap-2 mt-auto">
+            <button class="btn btn-outline-primary btn-sm" ng-click="editProduct(p)">
+              <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+            </button>
+            <button class="btn btn-outline-danger btn-sm" ng-click="deleteProduct(p._id)">
+              <i class="fa-solid fa-trash me-1"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center py-5" ng-if="!myProducts || myProducts.length === 0">
+    <div class="mb-3 text-muted">
+      <i class="fa-solid fa-box-open fs-1"></i>
+    </div>
+    <h4>No active listings</h4>
+    <p class="text-muted">Start selling by posting your first ad.</p>
+    <a href="#/add-product" class="btn btn-primary mt-2">Create Listing</a>
+  </div>
+
+</div>

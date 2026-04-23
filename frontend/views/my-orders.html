@@ -1,0 +1,67 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h2 class="fw-bold mb-1">My Orders</h2>
+      <p class="text-muted">Track your purchases and order history.</p>
+    </div>
+    <a href="#/products" class="btn btn-outline-primary rounded-pill shadow-sm px-4">
+      <i class="fa-solid fa-shopping-bag me-2"></i> Continue Shopping
+    </a>
+  </div>
+
+  <div class="bg-white rounded-3 shadow-sm p-4" ng-if="myOrders.length > 0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr class="text-muted small text-uppercase">
+            <th style="min-width: 200px;">Product</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Seller</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="o in myOrders | orderBy:'-createdAt'">
+            <td>
+              <div class="fw-bold text-dark">{{o.product.title || 'Product Unavailable'}}</div>
+              <small class="text-muted">Order ID: {{o._id}}</small>
+            </td>
+            <td class="fw-bold text-primary">₹ {{o.price | number}}</td>
+            <td class="small text-muted">
+              {{ o.createdAt | date:'MMM d, y' }}
+            </td>
+            <td>{{o.seller}}</td>
+            <td>
+              <span class="badge rounded-pill"
+                ng-class="{'bg-warning text-dark': o.status==='confirmed', 'bg-success': o.status==='Delivered', 'bg-info': o.status==='Shipped', 'bg-secondary': o.status==='pending'}">
+                {{o.status}}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-light btn-sm text-primary" title="View Details">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="text-center py-5" ng-if="!myOrders || myOrders.length === 0">
+    <div class="mb-3">
+      <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle"
+        style="width:80px; height:80px;">
+        <i class="fa-solid fa-cart-shopping fs-1 text-muted"></i>
+      </div>
+    </div>
+    <h4>No orders yet</h4>
+    <p class="text-muted col-md-6 mx-auto">You haven't purchased anything yet. Explore our marketplace to find great
+      deals.</p>
+    <a href="#/products" class="btn btn-primary mt-2 rounded-pill px-4">Browse Products</a>
+  </div>
+
+</div>

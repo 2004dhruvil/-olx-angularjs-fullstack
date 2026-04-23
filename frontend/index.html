@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="olxApp">
+
+<head>
+  <title>OLX Clone</title>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+  <script src="app.js"></script>
+  <script src="routes.js"></script>
+  <link rel="icon" href="data:,">
+
+
+  <script src="controllers/registerCtrl.js"></script>
+  <script src="controllers/loginCtrl.js"></script>
+  <script src="controllers/addProductCtrl.js"></script>
+  <script src="controllers/productListCtrl.js"></script>
+
+  <script src="services/authService.js"></script>
+  <script src="services/productService.js"></script>
+
+
+
+  <script src="directives/fileModel.js"></script> -->
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <!-- Socket.io -->
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+
+  <!-- App -->
+  <script src="app.js"></script>
+  <script src="routes.js"></script>
+
+  <!-- SERVICES (FIRST) -->
+  <script src="services/authService.js"></script>
+  <script src="services/productService.js"></script>
+  <script src="services/userService.js"></script>
+
+  <!-- DIRECTIVES -->
+  <script src="directives/fileModel.js"></script>
+
+  <!-- CONTROLLERS (AFTER SERVICES) -->
+  <script src="controllers/homeCtrl.js"></script>
+
+  <script src="controllers/loginCtrl.js"></script>
+  <script src="controllers/registerCtrl.js"></script>
+  <script src="controllers/addProductCtrl.js"></script>
+  <script src="controllers/productListCtrl.js"></script>
+  <script src="controllers/navbarCtrl.js"></script>
+  <script src="controllers/chatCtrl.js"></script>
+
+  <script src="controllers/productDetailCtrl.js"></script>
+  <script src="controllers/myProductsCtrl.js"></script>
+  <script src="controllers/orderCtrl.js"></script>
+  <script src="controllers/sellerDashboardCtrl.js"></script>
+
+
+  <!-- SELLER CONTROLLERS -->
+  <!-- <script src="controllers/SellerLoginCtrl.js"></script> -->
+  <!-- <script src="controllers/SellerRegisterCtrl.js"></script> -->
+  <script src="controllers/SellerCtrl.js"></script>
+
+
+
+  <!-- admin controllers -->
+  <script src="controllers/AdminLoginCtrl.js"></script>
+  <script src="controllers/AdminDashboardCtrl.js"></script>
+
+
+  <!-- my oder -->
+  <script src="controllers/MyOrdersCtrl.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Flatpickr (Date Picker) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Google reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+
+  <!-- NAVBAR -->
+  <div ng-include="'views/navbar.html'"></div>
+
+
+
+  <div ng-view></div>
+</body>
+
+</html>

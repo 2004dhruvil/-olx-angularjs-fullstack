@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1770308626949,
+    "name": "nitya",
+    "email": "nitya@gmail.com",
+    "password": "nitya",
+    "role": "user"
+  },
+  {
+    "id": 1770309081756,
+    "name": "meet",
+    "email": "meet@gmail.com",
+    "password": "meet",
+    "role": "user"
+  },
+  {
+    "id": 1770309877269,
+    "name": "shivam",
+    "email": "shivam@gmail.com",
+    "password": "shivam",
+    "role": "user"
+  },
+  {
+    "id": 1770881535095,
+    "name": "abc",
+    "email": "abc@gmaill.com",
+    "password": "abc",
+    "role": "user"
+  },
+  {
+    "id": 1770889264903,
+    "name": "dhruvil",
+    "email": "djdesai207@gmail.com",
+    "password": "dhruvil",
+    "role": "user"
+  },
+  {
+    "id": 1770909956164,
+    "name": "yashsoni",
+    "email": "yashsoni2906@gmail.com",
+    "password": "yash",
+    "role": "user"
+  },
+  {
+    "id": 1771008051803,
+    "name": "devanshi",
+    "email": "devanshi@gmail.com",
+    "password": "devanshi",
+    "role": "user"
+  }
+]

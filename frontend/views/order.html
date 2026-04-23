@@ -1,0 +1,15 @@
+<div class="container mt-4" ng-if="product">
+  <h2>Order Product</h2>
+
+  <img ng-src="http://localhost:5000/uploads/{{product.image}}"
+       style="max-width:250px" />
+
+  <h4>{{ product.title }}</h4>
+  <p>Price: ₹{{ product.price }}</p>
+
+  <button class="btn btn-success" ng-click="goToOrderForm()">
+ Continue
+</button>
+
+
+</div>

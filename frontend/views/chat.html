@@ -1,0 +1,81 @@
+<div class="container mt-4 chat-container">
+    <div class="row g-0 rounded-4 overflow-hidden shadow-sm bg-white" style="height: 80vh;">
+
+        <!-- SIDEBAR: CONVERSATIONS -->
+        <div class="col-md-4 border-end bg-light">
+            <div class="p-3 border-bottom bg-white">
+                <h5 class="fw-bold mb-0">Messages</h5>
+            </div>
+
+            <div class="list-group list-group-flush overflow-auto" style="height: calc(80vh - 60px);">
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action py-3 lh-sm"
+                    ng-repeat="conv in conversations" ng-class="{'active': conv.otherUser === selectedUser}"
+                    ng-click="selectUser(conv.otherUser)">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">{{ conv.otherUser }}</strong>
+                        <small class="text-body-secondary">{{ conv.lastMessage.timestamp | date:'shortTime' }}</small>
+                    </div>
+                    <div class="col-10 mb-1 small text-truncate">{{ conv.lastMessage.text }}</div>
+                </a>
+
+                <div ng-if="conversations.length === 0" class="text-center p-4 text-muted small">
+                    No conversations yet.
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN: CHAT AREA -->
+        <div class="col-md-8 d-flex flex-column">
+
+            <!-- HEADER -->
+            <div class="p-3 border-bottom bg-white d-flex align-items-center" ng-if="selectedUser">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
+                    style="width: 40px; height: 40px; font-weight: bold;">
+                    {{ selectedUser.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                    <h6 class="mb-0 fw-bold">{{ selectedUser }}</h6>
+                    <small class="text-success" ng-if="isConnected"><i class="fa-solid fa-circle x-small me-1"></i>
+                        Online</small>
+                </div>
+                <button class="btn btn-outline-danger btn-sm ms-auto rounded-circle" title="Delete Conversation"
+                    ng-click="deleteChat()">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+
+            <!-- MESSAGES -->
+            <div class="flex-grow-1 p-4 overflow-auto bg-light" id="chatMessages" style="scroll-behavior: smooth;">
+                <div ng-if="!selectedUser" class="h-100 d-flex align-items-center justify-content-center text-muted">
+                    <div class="text-center">
+                        <i class="fa-regular fa-comments fs-1 mb-3"></i>
+                        <p>Select a conversation to start chatting</p>
+                    </div>
+                </div>
+
+                <div ng-repeat="msg in messages" class="d-flex mb-3"
+                    ng-class="{'justify-content-end': msg.sender === currentUser}">
+                    <div class="p-3 rounded-4 shadow-sm" style="max-width: 70%;"
+                        ng-class="{'bg-primary text-white': msg.sender === currentUser, 'bg-white text-dark': msg.sender !== currentUser}">
+                        <p class="mb-0">{{ msg.text }}</p>
+                        <div class="text-end mt-1" style="font-size: 0.7rem; opacity: 0.8;">
+                            {{ msg.timestamp | date:'shortTime' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INPUT -->
+            <div class="p-3 bg-white border-top" ng-if="selectedUser">
+                <form ng-submit="sendMessage()" class="d-flex gap-2">
+                    <input type="text" class="form-control rounded-pill bg-light border-0 px-4"
+                        placeholder="Type a message..." ng-model="chat.message" required>
+                    <button type="submit" class="btn btn-primary rounded-circle" style="width: 46px; height: 46px;">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

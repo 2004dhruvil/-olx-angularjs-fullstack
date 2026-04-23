@@ -1,0 +1,9 @@
+node_modules/
+uploads/
+.env
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db

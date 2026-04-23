@@ -1,0 +1,62 @@
+[
+  {
+    "_id": 1771005979673,
+    "title": "Samsung s24 FE",
+    "price": "20000",
+    "description": "Samsung Galaxy S24 FE (128GB) in excellent condition. No scratches, smooth performance, 50MP camera, 5G supported. Box and accessories available. Price negotiable.",
+    "image": "4bb63b83813e59e2ab5d7ed4c94ab334",
+    "category": "Mobiles",
+    "seller": "\"abc\"",
+    "status": "available"
+  },
+  {
+    "_id": 1771006301196,
+    "title": "Honda Activa 4G",
+    "price": "70000",
+    "description": "very good condition. Single owner. All papers clear. Regular servicing done . No accident history.\r\nMileage: 45–50 km/l",
+    "image": "7d7bb823f5fd573fb1cfcbcf9c137ff8",
+    "category": "Bikes",
+    "seller": "\"abc\"",
+    "status": "available"
+  },
+  {
+    "_id": 1771006428395,
+    "title": "Asus vivobook14",
+    "price": "30000",
+    "description": "Laptop in excellent working condition. Ryzen 7, 8GB RAM, 512GB SSD",
+    "image": "08bfaee7d0ac98750a1c222d244d0fe3",
+    "category": "Electronics",
+    "seller": "\"abc\"",
+    "status": "available"
+  },
+  {
+    "_id": 1771006681880,
+    "title": "Alto 800",
+    "price": "200000",
+    "description": "Selling Black Alto 800 in excellent condition. Single owner, smooth engine, clean interior, all papers clear. Regularly serviced. Ideal for daily use. Price negotiable",
+    "image": "2035eb84bf95ac809b0bae3965550ed3",
+    "category": "Cars",
+    "seller": "\"abc\"",
+    "status": "available"
+  },
+  {
+    "_id": 1771006881259,
+    "title": "Queen Size Bed",
+    "price": "15000",
+    "description": "Queen size bed with spacious. Strong wood build and modern design. Hydraulic storage system. Mattress included",
+    "image": "1a1a363f88d33f70c764fa368b60547a",
+    "category": "Furniture",
+    "seller": "\"abc\"",
+    "status": "available"
+  },
+  {
+    "_id": 1771007031774,
+    "title": "Study Table",
+    "price": "4000",
+    "description": "Spacious wooden study table ideal for students or work-from-home setup.2 drawers for storage",
+    "image": "55b5a701df80114d85c9202ea4d97f17",
+    "category": "Furniture",
+    "seller": "\"dhruvil\"",
+    "status": "available"
+  }
+]

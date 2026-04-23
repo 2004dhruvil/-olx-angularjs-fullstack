@@ -1,0 +1,131 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-2 shadow" ng-controller="NavbarCtrl">
+
+  <!-- BRAND + LOGO -->
+  <a class="navbar-brand d-flex align-items-center gap-2" href="#/products">
+
+    <!-- Logo -->
+    <!-- <img src="assets/logo.png"
+         alt="OLX Logo"
+         style="height:32px; width:auto;"> -->
+
+    <!-- Brand name -->
+    <span class="fw-bold brand d-flex align-items-center gap-2">
+      OLX Clone
+      <img src="https://s.yimg.com/zb/imgv1/f15201b5-1ee4-3db1-9d6c-297bd1f659c3/t_500x300" alt="Logo"
+        class="brand-logo" style="height: 30px; width: auto;">
+    </span>
+
+  </a>
+
+  <!-- Mobile toggle -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto align-items-center">
+
+
+      <!-- admin login -->
+      <li class="nav-item" ng-if="!isLoggedIn()">
+        <a class="nav-link" href="#/admin/login">Admin</a>
+      </li>
+
+
+      <!-- ================= BEFORE LOGIN ================= -->
+
+      <li class="nav-item" ng-if="!isLoggedIn()">
+        <a class="nav-link" ng-class="{active: isActive('/register')}" href="#/register">
+          Register
+        </a>
+      </li>
+
+      <li class="nav-item" ng-if="!isLoggedIn()">
+        <a class="nav-link" ng-class="{active: isActive('/login')}" href="#/login">
+          Login
+        </a>
+      </li>
+
+      <!-- Seller Dropdown
+      <li class="nav-item dropdown" ng-if="!isLoggedIn()">
+        <a class="nav-link dropdown-toggle"
+           href="#"
+           id="sellerDropdown"
+           role="button"
+           data-bs-toggle="dropdown">
+          Seller
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a class="dropdown-item" href="#/seller/login">
+              Seller Login
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#/seller/register">
+              Seller Register
+            </a>
+          </li>
+        </ul>
+      </li>-->
+
+      <!-- ================= AFTER LOGIN ================= -->
+
+      <!-- ================= AFTER LOGIN ================= -->
+
+      <li class="nav-item" ng-if="isLoggedIn() && getRole() !== 'admin'">
+        <a class="nav-link" ng-class="{active: isActive('/products')}" href="#/products">
+          Products
+        </a>
+      </li>
+
+      <!-- Seller Links (Now for all users) -->
+      <li class="nav-item" ng-if="isLoggedIn() && getRole() === 'seller'">
+        <a class="nav-link" ng-class="{active: isActive('/seller')}" href="#/seller">
+          Dashboard
+        </a>
+      </li>      <li class="nav-item" ng-if="isLoggedIn() && getRole() !== 'admin'">
+        <a class="nav-link" ng-class="{active: isActive('/my-products')}" href="#/my-products">
+          My Ads
+        </a>
+      </li>
+      <!-- User Links -->
+      <li class="nav-item" ng-if="isLoggedIn() && getRole() !== 'admin'">
+        <a class="nav-link" ng-class="{active: isActive('/my-orders')}" href="#/my-orders">
+          My Orders
+        </a>
+      </li>
+
+      <!-- USER -->
+      <li class="nav-item ms-3" ng-if="isLoggedIn()">
+        <span class="navbar-text text-info">
+          Hello, {{ getUsername() }}
+        </span>
+      </li>
+
+      <!-- MESSAGES LINK -->
+      <li class="nav-item ms-3" ng-if="isLoggedIn() && getRole() !== 'admin'">
+        <a class="nav-link position-relative" href="#/chat" title="Messages">
+          <i class="fa-solid fa-comment-dots fs-5"></i>
+        </a>
+      </li>
+
+
+      <!-- admin Dashboard -->
+
+      <li class="nav-item" ng-if="isLoggedIn() && getRole() === 'admin'">
+        <a class="nav-link" href="#/admin">Admin Dashboard</a>
+      </li>
+
+
+      <!-- LOGOUT -->
+      <li class="nav-item ms-3" ng-if="isLoggedIn()">
+        <button class="btn btn-danger btn-sm" ng-click="logout()">
+          Logout
+        </button>
+      </li>
+
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,28 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="auth-container">
+
+    <h3 class="text-center mb-4 text-primary">
+      Seller Login
+    </h3>
+
+    <div class="mb-3">
+      <label class="form-label text-start d-block">Seller Name</label>
+      <input type="text" class="form-control" placeholder="Enter seller name" ng-model="seller.name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-start d-block">Password</label>
+      <input type="password" class="form-control" placeholder="Enter password" ng-model="seller.password">
+    </div>
+
+    <button class="btn btn-primary w-100 mt-2" ng-click="loginSeller()">
+      Login as Seller
+    </button>
+
+    <p class="text-center mt-3 mb-0">
+      New seller?
+      <a href="#/seller/register">Register here</a>
+    </p>
+
+  </div>
+</div>

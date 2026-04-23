@@ -1,0 +1,284 @@
+<div class="admin-wrapper min-vh-100">
+
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h2 class="fw-bold mb-1" style="font-size: 2.5rem; letter-spacing: -1px;">Admin Dashboard</h2>
+                <p class="text-muted">System Overview & Management</p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end d-none d-md-block">
+                    <div class="fw-bold">{{currentAdmin.name}}</div>
+                    <div class="small text-muted">{{currentAdmin.role | uppercase}}</div>
+                </div>
+                <!-- Avatar with Gradient Border -->
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                    style="width: 50px; height: 50px; background: white; border: 2px solid #4361ee; color: #4361ee;">
+                    {{currentAdmin.name.charAt(0)}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="row mb-5 g-4">
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card stat-users">
+                    <div class="stat-value">{{stats.totalUsers}}</div>
+                    <div class="stat-label">Active Users</div>
+                    <i class="fa-solid fa-users position-absolute opacity-10"
+                        style="right: -10px; bottom: -10px; font-size: 5rem; color: #4cc9f0;"></i>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card stat-sellers">
+                    <div class="stat-value">{{stats.totalSellers}}</div>
+                    <div class="stat-label">Sellers</div>
+                    <i class="fa-solid fa-store position-absolute opacity-10"
+                        style="right: -10px; bottom: -10px; font-size: 5rem; color: #4361ee;"></i>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card stat-products">
+                    <div class="stat-value">{{stats.totalProducts}}</div>
+                    <div class="stat-label">Products</div>
+                    <i class="fa-solid fa-box-open position-absolute opacity-10"
+                        style="right: -10px; bottom: -10px; font-size: 5rem; color: #f72585;"></i>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card stat-orders">
+                    <div class="stat-value">{{stats.totalOrders}}</div>
+                    <div class="stat-label">Total Orders</div>
+                    <i class="fa-solid fa-shopping-cart position-absolute opacity-10"
+                        style="right: -10px; bottom: -10px; font-size: 5rem; color: #fca311;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status Banner -->
+        <!-- <div class="row mb-5">
+            <div class="col-12">
+                <div class="status-card">
+                    <div>
+                        <h4 class="mb-1">System Status: Operational</h4>
+                        <small style="opacity: 0.8;">All services are running smoothly. Database connection is stable.</small>
+                    </div>
+                    <i class="fa-solid fa-server fs-1" style="opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- ORDERS TABLE (New Glass Design) -->
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="admin-table-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="section-title mb-0">Recent Orders</h5>
+                        <div class="d-flex gap-2 align-items-center">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fa-solid fa-calendar-alt text-primary"></i>
+                                </span>
+                                <input type="text" id="orderDatePicker" class="form-control border-start-0 ps-0"
+                                    placeholder="Filter by date..." readonly>
+                                <button class="btn btn-outline-secondary" ng-click="clearDateFilter()"
+                                    title="Clear Filter">
+                                    <i class="fa-solid fa-times"></i>
+                                </button>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary rounded-pill px-3" ng-click="refreshOrders()">
+                                <i class="fa-solid fa-sync me-1"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle" style="border-collapse: separate; border-spacing: 0 10px;">
+                            <thead>
+                                <tr class="text-muted small text-uppercase"
+                                    style="border-bottom: 2px solid rgba(0,0,0,0.05);">
+                                    <th>Order ID</th>
+                                    <th>Buyer</th>
+                                    <th>Product</th>
+                                    <th>Seller</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th class="text-end pe-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="o in orders"
+                                    style="background: rgba(255,255,255,0.4); border-radius: 10px;">
+                                    <td class="ps-3"><span class="badge bg-light text-dark shadow-sm">#{{o._id |
+                                            limitTo:6}}</span></td>
+                                    <td>
+                                        <a href="" ng-click="viewUserOrders(o.buyer)"
+                                            class="fw-bold text-primary text-decoration-none shadow-hover-text">
+                                            {{o.buyer}} <i class="fa-solid fa-external-link-alt small ms-1"
+                                                style="font-size: 0.7rem;"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{o.product ? o.product.title : 'Product Deleted'}}</td>
+                                    <td>{{o.seller}}</td>
+                                    <td class="fw-bold text-primary">₹{{o.price}}</td>
+                                    <td class="pe-3">
+                                        <span class="badge badge-pill bg-warning text-dark">{{o.status}}</span>
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-light text-danger btn-sm rounded-circle shadow-sm"
+                                            ng-click="deleteOrder(o._id)" title="Delete Order">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="!orders || orders.length === 0">
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="fa-solid fa-box-open fs-1 mb-3 opacity-50"></i><br>
+                                        No recent orders found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- USERS TABLE -->
+            <div class="col-lg-6">
+                <div class="admin-table-card">
+                    <h5 class="section-title">New Users</h5>
+                    <div class="table-responsive">
+                        <table class="table table-borderless align-middle">
+                            <tbody>
+                                <tr ng-repeat="u in users | limitTo:5" class="border-bottom border-light">
+                                    <td width="50">
+                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold"
+                                            style="width: 40px; height: 40px; font-size: 0.9rem;">
+                                            {{u.name.charAt(0)}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">{{u.name}}</div>
+                                        <small class="text-muted">{{u.email}}</small>
+                                    </td>
+                                    <td><span class="badge badge-pill bg-secondary">{{u.role}}</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-light text-danger btn-sm rounded-circle shadow-sm"
+                                            ng-click="deleteUser(u)" title="Delete User">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS TABLE -->
+            <div class="col-lg-6">
+                <div class="admin-table-card">
+                    <h5 class="section-title">Product Management</h5>
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-borderless align-middle">
+                            <thead class="sticky-top bg-white shadow-sm" style="z-index: 10;">
+                                <tr class="text-muted small text-uppercase">
+                                    <th class="ps-3 py-3">Product</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th class="text-end pe-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in products" class="border-bottom border-light">
+                                    <td class="ps-3">
+                                        <div class="fw-bold text-truncate" style="max-width: 150px;">{{p.title}}</div>
+                                        <small class="text-muted">{{p.seller}}</small>
+                                    </td>
+                                    <td class="fw-bold text-success">₹{{p.price}}</td>
+                                    <td>
+                                        <span class="badge badge-pill"
+                                            ng-class="{'bg-success': p.status==='available', 'bg-danger': p.status==='sold'}">
+                                            {{p.status}}
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <a href="#/edit-product/{{p._id}}"
+                                            class="btn btn-light text-info btn-sm rounded-circle shadow-sm me-1"
+                                            title="Edit Product">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <button class="btn btn-light text-danger btn-sm rounded-circle shadow-sm"
+                                            ng-click="deleteProduct(p._id)" title="Delete Product">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- USER ORDER HISTORY MODAL -->
+    <div class="glass-modal" ng-class="{'show': showUserOrdersModal}" ng-if="showUserOrdersModal">
+        <div class="glass-modal-content">
+            <button class="btn-close-modal" ng-click="closeUserOrdersModal()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold mx-auto mb-3 shadow"
+                    style="width: 60px; height: 60px; font-size: 1.5rem;">
+                    {{selectedUserName.charAt(0)}}
+                </div>
+                <h3 class="fw-bold mb-1">Order History: {{selectedUserName}}</h3>
+                <p class="text-muted">Total Orders: {{selectedUserOrders.length}}</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr class="text-muted small text-uppercase" style="border-bottom: 2px solid rgba(0,0,0,0.05);">
+                            <th>Order ID</th>
+                            <th>Product</th>
+                            <th>Seller</th>
+                            <th>Order Date</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="o in selectedUserOrders"
+                            style="background: rgba(255,255,255,0.5); border-radius: 10px;">
+                            <td class="ps-3"><span class="badge bg-light text-dark">#{{o._id | limitTo:6}}</span></td>
+                            <td class="fw-bold">{{o.product ? o.product.title : 'Deleted Product'}}</td>
+                            <td>{{o.seller}}</td>
+                            <!-- Real-time date from DB -->
+                            <td class="small text-muted">{{o.createdAt | date:'medium'}}</td>
+                            <td class="fw-bold text-primary">₹{{o.price}}</td>
+                            <td class="pe-3">
+                                <span class="badge badge-pill bg-warning text-dark">{{o.status}}</span>
+                            </td>
+                        </tr>
+                        <tr ng-if="selectedUserOrders.length === 0">
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-shopping-bag fs-1 mb-3 opacity-50"></i><br>
+                                No orders found for this user.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,111 @@
+<div class="container py-4">
+  <div class="row">
+    <!-- FILTER SIDEBAR -->
+    <div class="col-md-3 mb-4">
+      <div class="p-3 bg-white rounded-3 shadow-sm sticky-top" style="top: 100px;">
+        <h5 class="fw-bold mb-3">Filters</h5>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-uppercase text-muted">Search</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+            <input type="text" class="form-control bg-light border-start-0" ng-model="search" placeholder="Keyword...">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-uppercase text-muted">Category</label>
+          <select class="form-select bg-light" ng-model="selectedCategory" ng-change="filterCategory()">
+            <option value="">All Categories</option>
+            <option>Mobiles</option>
+            <option>Cars</option>
+            <option>Property</option>
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Bikes</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-uppercase text-muted">Price Range</label>
+          <div class="d-flex gap-2">
+            <input type="number" class="form-control form-control-sm" placeholder="Min" ng-model="minPrice">
+            <input type="number" class="form-control form-control-sm" placeholder="Max" ng-model="maxPrice">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="d-grid">
+          <button class="btn btn-primary btn-sm" ng-click="applyFilters()">Apply Filters</button>
+          <a href="#/add-product" class="btn btn-warning fw-bold mt-3">
+            <i class="fa-solid fa-camera me-1"></i> Sell Item
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="col-md-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0 fw-bold">
+          <span ng-if="selectedCategory">{{selectedCategory}}</span>
+          <span ng-if="!selectedCategory">All Products</span>
+        </h4>
+        <div class="text-muted small">
+          Showing {{ (products | filter:search).length }} results
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-4" ng-repeat="p in products | filter:search">
+          <div class="product-card h-100">
+            <div class="product-card-img-wrapper">
+              <!-- Image handling: use first image from images array -->
+              <img ng-src="{{ 'http://localhost:5000/uploads/' + p.images[0] }}"
+                onerror="this.src='https://placehold.co/300x200?text=No+Image'" alt="{{p.title}}">
+
+              <span class="badge position-absolute top-0 start-0 m-2"
+                ng-class="{'bg-success': p.status==='available', 'bg-danger': p.status==='sold', 'bg-secondary': !p.status}">
+                {{ p.status || 'Available' }}
+              </span>
+            </div>
+
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title text-truncate" title="{{p.title}}">{{p.title}}</h5>
+                <button class="btn btn-link text-muted p-0"><i class="fa-regular fa-heart"></i></button>
+              </div>
+
+              <div class="card-price">₹ {{ p.price | number }}</div>
+              <p class="card-text small text-muted text-truncate">{{ p.description }}</p>
+
+              <div class="card-meta mt-auto">
+                <span><i class="fa-solid fa-tag me-1 text-primary"></i> {{p.category || 'Item'}}</span>
+                <!-- <span><i class="fa-regular fa-clock me-1"></i> {{p.date | date:'mediumDate'}}</span> -->
+              </div>
+
+              <a href="#/product/{{p._id}}" class="btn-card-action text-center text-decoration-none mt-3">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="col-12 text-center py-5" ng-if="(products | filter:search).length === 0">
+          <div class="mb-3">
+            <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle"
+              style="width:80px; height:80px;">
+              <i class="fa-solid fa-box-open fs-1 text-muted"></i>
+            </div>
+          </div>
+          <h4>No products found</h4>
+          <p class="text-muted">Try removing some filters or search for something else.</p>
+          <button class="btn btn-primary" ng-click="search=''; selectedCategory=''">Clear Filters</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
